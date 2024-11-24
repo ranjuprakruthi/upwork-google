@@ -77,13 +77,10 @@
             <label for="email">Email</label>
             <input type="text" id="email" name="email" required>
             
-            <label for="password">Password</label>
-    <div style="position: relative;">
-        <input type="password" id="password" name="password" required>
-        <button type="button" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
-            <img src="eye-icon.png" alt="Show Password" style="width: 20px; height: 20px;">
-        </button>
-    </div>
+            <div class="label-icon">
+                <label for="password">Password</label>
+                <i class="fas fa-key"></i>
+            </div>
 
             
             <button type="submit">Sign in</button>
