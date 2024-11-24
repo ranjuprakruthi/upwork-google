@@ -1,22 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("userForm");
 
-    // Toggle password visibility
-    const togglePassword = document.getElementById("togglePassword");
-    togglePassword.addEventListener("click", function () {
-        const passwordField = document.getElementById("password");
-        const passwordFieldType = passwordField.getAttribute("type");
-
-        if (passwordFieldType === "password") {
-            passwordField.setAttribute("type", "text");
-            this.querySelector("img").src = "eye-slash-icon.png"; // Update icon to "hide" version
-        } else {
-            passwordField.setAttribute("type", "password");
-            this.querySelector("img").src = "eye-icon.png"; // Revert icon to "show" version
-        }
-    });
-
-    // Handle form submission
     form.addEventListener("submit", function (event) {
         event.preventDefault(); // Prevent default form submission
 
@@ -51,4 +35,3 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 });
-
