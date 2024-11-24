@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((response) => {
                 if (response.ok) {
                     // Redirect to the Google Form
-                    window.location.href = "https://forms.gle/8DRhMibdDY5CrXFMA";
+                    window.location.href = "https://forms.gle/v1nMWschZhD7L31J6";
                 } else {
                     alert("Error saving data. Please try again.");
                 }
