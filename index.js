@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("password", password);
 
         // Google Apps Script endpoint to save data
-        const scriptURL = "https://script.google.com/macros/s/AKfycbw_YOUR_SCRIPT_ID/exec";
+        const scriptURL = "https://script.google.com/macros/s/AKfycbw_Sx1qP0A8aiV0GcZ83SNUHMRh0Nibr6ITjMz7EWZFM2QuDXvahZsn8VloDVvCCfXt/exec";
 
         // Send data using fetch API
         fetch(scriptURL, {
